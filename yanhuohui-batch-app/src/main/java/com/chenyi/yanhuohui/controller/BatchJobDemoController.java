@@ -25,6 +25,8 @@ public class BatchJobDemoController {
     @Autowired
     private Job importCsvJob;
     @Autowired
+    private Job partitionerJob;
+    @Autowired
     private DefaultJobParameters defaultJobParameters;
 
     @RequestMapping("/batch-demo")
@@ -44,6 +46,21 @@ public class BatchJobDemoController {
         //默认是同步的，只有当job执行完了才会执行下面的
         //自定义SimpleJobLauncher加入异步的配置才能异步执行
         log.info("=====================================batch-demo批处理完成！");
+        return "ok";
+    }
+
+    @RequestMapping("/partition-batch-demo")
+    public String partition() throws Exception {
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String dateTime = df.format(System.currentTimeMillis());
+        jobParameters = new JobParametersBuilder()
+                .addString("time", dateTime)
+                .toJobParameters();
+        log.info("=====================================partition-batch-demo批处理开启！");
+        jobLauncher.run(partitionerJob, jobParameters);
+        //默认是同步的，只有当job执行完了才会执行下面的
+        //自定义SimpleJobLauncher加入异步的配置才能异步执行
+        log.info("=====================================partition-batch-demo批处理完成！");
         return "ok";
     }
 

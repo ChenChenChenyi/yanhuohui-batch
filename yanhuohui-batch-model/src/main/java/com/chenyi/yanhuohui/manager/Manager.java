@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 
 @Data
 @Builder
@@ -25,4 +26,7 @@ public class Manager {
     @Column(name = "role")
     @NotNull
     private String role;
+
+    @Column(name = "create_time")
+    private LocalDateTime createTime;
 }

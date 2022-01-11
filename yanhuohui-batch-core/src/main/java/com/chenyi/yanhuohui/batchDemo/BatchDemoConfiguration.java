@@ -38,6 +38,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 import java.util.concurrent.TimeUnit;
 
+
 @Configuration
 @EnableBatchProcessing
 public class BatchDemoConfiguration {
@@ -127,7 +128,7 @@ public class BatchDemoConfiguration {
                       ItemProcessor<Manager, Manager> step1Processor) {
         return stepBuilderFactory.get("importCsvStep1")
                 .listener(batchDemoStep1Listener())
-                .<Manager, Manager>chunk(1000)//批处理每次提交65000条数据
+                .<Manager, Manager>chunk(1000)//批处理每次提交1000条数据
                 .reader(step1Reader)//给step绑定reader
                 .processor(step1Processor)//给step绑定processor
                 .writer(step1Writer)//给step绑定writer
@@ -148,6 +149,7 @@ public class BatchDemoConfiguration {
     @Bean
     @StepScope
     public JpaItemWriter<Client> importCsvStep2Writer() throws Exception {
+        //数据处理工作在processor中已经做完了，这里只需要写入就行
         JpaItemWriter<Client> jpaItemWriter = new JpaItemWriter<>();
         jpaItemWriter.setEntityManagerFactory(entityManagerFactory);
         return jpaItemWriter;
