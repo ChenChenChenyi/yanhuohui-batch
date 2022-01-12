@@ -78,6 +78,7 @@ public class SpringbatchPartitionConfig {
                 .partitionHandler(partitionHandler(this.slaveStep(),this.taskExecutor()))
                 .step(slaveStep())
                 .taskExecutor(taskExecutor())
+                .aggregator(stepExecutionAggregator())
                 .build();
     }
 
@@ -108,6 +109,11 @@ public class SpringbatchPartitionConfig {
         taskExecutorPartitionHandler.setStep(slaveStep);
         taskExecutorPartitionHandler.setGridSize(2);
         return taskExecutorPartitionHandler;
+    }
+
+    @Bean
+    public MyStepExecutionAggregator stepExecutionAggregator(){
+        return new MyStepExecutionAggregator();
     }
 
 

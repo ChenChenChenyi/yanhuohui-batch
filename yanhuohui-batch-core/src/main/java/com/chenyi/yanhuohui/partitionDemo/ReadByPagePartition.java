@@ -24,6 +24,7 @@ import java.util.Map;
 public class ReadByPagePartition implements Partitioner {
     public static final String START_TIME = "startTime";
     public static final String END_TIME = "endTime";
+    public static final String PAGE_NUM = "pageNum";
 
     @Autowired
     private ManagerRepository managerRepository;
@@ -51,9 +52,11 @@ public class ReadByPagePartition implements Partitioner {
             ExecutionContext executionContext = new ExecutionContext();
             executionContext.putString(START_TIME,startTime);
             executionContext.putString(END_TIME,endTime);
+            executionContext.putInt(PAGE_NUM,dateTimes.size());
             resultMap.put("partition"+i,executionContext);
         }
-        log.info("分片信息partition如下：{}",resultMap);
+
+        log.info("本次需要处理的数据总量为{}，分片信息partition如下：{}",totalNum,resultMap);
         return resultMap;
     }
 }
