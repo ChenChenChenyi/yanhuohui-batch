@@ -8,8 +8,11 @@ import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 public interface ManagerRepository extends JpaRepository<Manager,Long> {
+
+    List<Manager> findByName(String name);
 
     @Query(
             value = "select * from manager as u where u.name = :name",
