@@ -34,5 +34,21 @@ public class ManagerRepositoryTest {
         }
     }
 
+    @Test
+    public void testDTO(){
+        List<ManagerDTO> managerList = managerRepository.findGroupByName("maomao%");
+        for(ManagerDTO manager : managerList){
+            log.info(manager.toString());
+        }
+    }
+
+    @Test
+    public void testLikeName(){
+        List<Manager> managerList = managerRepository.findByNameLike("maomao%");
+        for(Manager manager : managerList){
+            log.info(manager.toString());
+        }
+    }
+
 
 }

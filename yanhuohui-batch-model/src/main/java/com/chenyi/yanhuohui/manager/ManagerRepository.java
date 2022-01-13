@@ -30,4 +30,15 @@ public interface ManagerRepository extends JpaRepository<Manager,Long> {
     @Query(value = "select * from manager where create_time between :startTime and :endTime",
             nativeQuery = true)
     Page<Manager> findByTime(@Param("startTime") LocalDateTime startTime,@Param("endTime") LocalDateTime endTime, Pageable pageable);
+
+    @Query(value = "select new com.chenyi.yanhuohui.manager.ManagerDTO(m.id,m.name) from Manager m where m.name like ?1")
+    List<ManagerDTO> findGroupByName(String name);
+
+    /**
+     * 这个有个坑，用对象查询的语句时Manager这个实体对象对应的写法是Manager实体上Entity注解里面的name的值，默认是类的名字
+     * 所以写成select m from manager m where m.name like ?1时总是报错，这里不是manager而是Manager
+     */
+    @Query(value = "select m from Manager m where m.name like ?1")
+    List<Manager> findByNameLike(String name);
+
 }
