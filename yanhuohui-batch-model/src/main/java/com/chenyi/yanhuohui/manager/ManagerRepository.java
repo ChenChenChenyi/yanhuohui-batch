@@ -3,8 +3,10 @@ package com.chenyi.yanhuohui.manager;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -40,5 +42,10 @@ public interface ManagerRepository extends JpaRepository<Manager,Long> {
      */
     @Query(value = "select m from Manager m where m.name like ?1")
     List<Manager> findByNameLike(String name);
+
+    @Modifying
+    @Transactional
+    @Query("update Manager set role = ?2 where id = ?1")
+    int updateById(Long id,String role);
 
 }
