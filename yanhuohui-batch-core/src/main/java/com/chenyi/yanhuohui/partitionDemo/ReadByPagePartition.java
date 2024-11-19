@@ -46,7 +46,7 @@ public class ReadByPagePartition implements Partitioner {
             Page<String> minTime = managerRepository.findMinTimeByPage(LocalDate.of(2021,12,31),
                     LocalDate.of(2022, 1, 1),pageable);
             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            List<String> dateTimes = minTime.toList();
+            List<String> dateTimes = minTime.getContent();
             String startTime = df.format(dateTimes.get(0));
             String endTime = df.format(dateTimes.get(dateTimes.size()-1));
             ExecutionContext executionContext = new ExecutionContext();

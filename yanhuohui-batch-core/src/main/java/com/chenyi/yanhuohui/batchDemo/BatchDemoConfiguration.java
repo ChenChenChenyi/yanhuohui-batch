@@ -40,7 +40,6 @@ import java.util.concurrent.TimeUnit;
 
 
 @Configuration
-@EnableBatchProcessing
 public class BatchDemoConfiguration {
 
     @Autowired

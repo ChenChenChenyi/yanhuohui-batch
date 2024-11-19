@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -25,6 +26,7 @@ public class Manager {
 
     @Column(name = "role")
     @NotNull
+    @Length(min = 2, max = 4, message = "角色名必须在2个到4个字符之间")
     private String role;
 
     @Column(name = "create_time")
