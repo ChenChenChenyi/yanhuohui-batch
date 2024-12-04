@@ -1,1 +1,5 @@
 /yanhuohui-batch-app/target/
+/.idea/
+/yanhuohui-batch-model/target/
+/yanhuohui-batch-core/target/
+/yanhuohui-batch-api/target/
