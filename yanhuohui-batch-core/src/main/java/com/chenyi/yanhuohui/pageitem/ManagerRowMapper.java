@@ -1,6 +1,6 @@
 package com.chenyi.yanhuohui.pageitem;
 
-import com.chenyi.yanhuohui.manager.Manager;
+import com.chenyi.yanhuohui.primary.manager.Manager;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;

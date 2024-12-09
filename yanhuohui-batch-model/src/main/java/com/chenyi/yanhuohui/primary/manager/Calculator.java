@@ -1,4 +1,4 @@
-package com.chenyi.yanhuohui.manager;
+package com.chenyi.yanhuohui.primary.manager;
 
 /**
  * 学习单元测试使用到的实体类

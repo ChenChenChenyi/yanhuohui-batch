@@ -1,10 +1,7 @@
 package com.chenyi.yanhuohui.batchDemo;
 
-import com.chenyi.yanhuohui.client.ClientRepository;
-import com.chenyi.yanhuohui.manager.Manager;
+import com.chenyi.yanhuohui.primary.manager.Manager;
 import org.springframework.batch.item.validator.ValidatingItemProcessor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.validation.ValidationException;
 

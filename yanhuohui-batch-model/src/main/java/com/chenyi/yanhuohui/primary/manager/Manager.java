@@ -1,4 +1,4 @@
-package com.chenyi.yanhuohui.manager;
+package com.chenyi.yanhuohui.primary.manager;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class Manager {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "name")

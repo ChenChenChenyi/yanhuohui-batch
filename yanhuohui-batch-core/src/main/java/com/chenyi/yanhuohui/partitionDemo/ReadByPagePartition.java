@@ -1,8 +1,7 @@
 package com.chenyi.yanhuohui.partitionDemo;
 
-import com.chenyi.yanhuohui.manager.ManagerRepository;
+import com.chenyi.yanhuohui.primary.manager.ManagerRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.tomcat.jni.Local;
 import org.springframework.batch.core.partition.support.Partitioner;
 import org.springframework.batch.item.ExecutionContext;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +13,6 @@ import org.springframework.stereotype.Component;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

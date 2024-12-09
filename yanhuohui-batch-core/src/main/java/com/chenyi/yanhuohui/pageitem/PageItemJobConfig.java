@@ -1,6 +1,6 @@
 package com.chenyi.yanhuohui.pageitem;
 
-import com.chenyi.yanhuohui.manager.Manager;
+import com.chenyi.yanhuohui.primary.manager.Manager;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
@@ -75,7 +75,7 @@ public class PageItemJobConfig {
     }
 
     @Bean
-    public Job pageItemJob(JobRepository jobRepository, PlatformTransactionManager platformTransactionManager) {
+    public Job pageItemJob(JobRepository jobRepository) {
 
         return jobBuilderFactory.get("pageItemJob").start(pageItemStep()).build();
     }

@@ -1,6 +1,6 @@
 package com.chenyi.yanhuohui.partitionDemo;
 
-import com.chenyi.yanhuohui.manager.Manager;
+import com.chenyi.yanhuohui.primary.manager.Manager;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.item.ItemWriter;

@@ -2,7 +2,7 @@ package com.chenyi.yanhuohui.batchDemo;
 
 import com.chenyi.yanhuohui.client.Client;
 import com.chenyi.yanhuohui.client.ClientRepository;
-import com.chenyi.yanhuohui.manager.Manager;
+import com.chenyi.yanhuohui.primary.manager.Manager;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 

@@ -1,4 +1,4 @@
-package com.chenyi.yanhuohui.manager;
+package com.chenyi.yanhuohui.primary.manager;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;

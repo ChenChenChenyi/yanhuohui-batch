@@ -1,6 +1,6 @@
 package com.chenyi.yanhuohui.csvfile;
 
-import com.chenyi.yanhuohui.manager.Manager;
+import com.chenyi.yanhuohui.primary.manager.Manager;
 import org.springframework.batch.core.ItemReadListener;
 
 /**

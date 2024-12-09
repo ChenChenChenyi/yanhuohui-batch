@@ -1,7 +1,6 @@
 package com.chenyi.yanhuohui.partitionDemo;
 
-import com.chenyi.yanhuohui.client.Client;
-import com.chenyi.yanhuohui.manager.Manager;
+import com.chenyi.yanhuohui.primary.manager.Manager;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -14,23 +13,17 @@ import org.springframework.batch.core.partition.support.TaskExecutorPartitionHan
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemWriter;
-import org.springframework.batch.item.UnexpectedInputException;
 import org.springframework.batch.item.database.JdbcPagingItemReader;
-import org.springframework.batch.item.database.JpaItemWriter;
-import org.springframework.batch.item.database.JpaPagingItemReader;
 import org.springframework.batch.item.database.Order;
 import org.springframework.batch.item.database.builder.JdbcPagingItemReaderBuilder;
-import org.springframework.batch.item.database.builder.JpaPagingItemReaderBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.task.TaskExecutor;
 import org.springframework.jdbc.core.ColumnMapRowMapper;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
-import javax.persistence.ColumnResult;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 import java.util.HashMap;
@@ -47,8 +40,6 @@ public class SpringbatchPartitionConfig {
     private JobBuilderFactory jobBuilderFactory;
     @Autowired
     private DataSource dataSource;
-    @Autowired
-    private EntityManagerFactory entityManagerFactory;
     @Autowired
     private stepExecutionPartitionListener stepExecutionPartitionListener;
     @Autowired

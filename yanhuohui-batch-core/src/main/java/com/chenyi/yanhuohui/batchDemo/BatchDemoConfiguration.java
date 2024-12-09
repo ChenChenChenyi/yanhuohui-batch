@@ -1,12 +1,9 @@
 package com.chenyi.yanhuohui.batchDemo;
 
-import com.chenyi.yanhuohui.DefaultJobParameters;
 import com.chenyi.yanhuohui.client.Client;
-import com.chenyi.yanhuohui.manager.Manager;
+import com.chenyi.yanhuohui.primary.manager.Manager;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
-import org.springframework.batch.core.StepExecution;
-import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepScope;
@@ -18,7 +15,6 @@ import org.springframework.batch.item.database.BeanPropertyItemSqlParameterSourc
 import org.springframework.batch.item.database.JdbcBatchItemWriter;
 import org.springframework.batch.item.database.JpaItemWriter;
 import org.springframework.batch.item.database.JpaPagingItemReader;
-import org.springframework.batch.item.database.builder.JpaItemWriterBuilder;
 import org.springframework.batch.item.database.builder.JpaPagingItemReaderBuilder;
 import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.mapping.DefaultLineMapper;
@@ -32,7 +28,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.data.jpa.repository.query.Jpa21Utils;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
@@ -45,6 +40,7 @@ public class BatchDemoConfiguration {
     @Autowired
     private DataSource dataSource;
     @Autowired
+    @Qualifier("primaryEntityManagerFactory")
     private EntityManagerFactory entityManagerFactory;
 
     @Bean

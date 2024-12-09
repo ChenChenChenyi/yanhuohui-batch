@@ -1,4 +1,4 @@
-package com.chenyi.yanhuohui.manager;
+package com.chenyi.yanhuohui.primary.manager;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -33,8 +33,8 @@ public interface ManagerRepository extends JpaRepository<Manager,Long> {
             nativeQuery = true)
     Page<Manager> findByTime(@Param("startTime") LocalDateTime startTime,@Param("endTime") LocalDateTime endTime, Pageable pageable);
 
-    @Query(value = "select new com.chenyi.yanhuohui.manager.ManagerDTO(m.id,m.name) from Manager m where m.name like ?1")
-    List<ManagerDTO> findGroupByName(String name);
+//    @Query(value = "select new com.chenyi.yanhuohui.manager.ManagerDTO(m.id,m.name) from Manager m where m.name like ?1")
+//    List<ManagerDTO> findGroupByName(String name);
 
     /**
      * 这个有个坑，用对象查询的语句时Manager这个实体对象对应的写法是Manager实体上Entity注解里面的name的值，默认是类的名字

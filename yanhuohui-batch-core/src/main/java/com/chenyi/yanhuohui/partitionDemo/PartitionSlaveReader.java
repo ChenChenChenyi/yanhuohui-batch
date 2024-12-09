@@ -1,7 +1,7 @@
 package com.chenyi.yanhuohui.partitionDemo;
 
-import com.chenyi.yanhuohui.manager.Manager;
-import com.chenyi.yanhuohui.manager.ManagerRepository;
+import com.chenyi.yanhuohui.primary.manager.Manager;
+import com.chenyi.yanhuohui.primary.manager.ManagerRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.item.database.AbstractPagingItemReader;
@@ -9,10 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.concurrent.CopyOnWriteArrayList;
