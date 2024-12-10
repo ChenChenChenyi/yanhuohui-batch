@@ -15,10 +15,11 @@ public class PartitionSlaveWriter implements ItemWriter<Manager> {
     @Override
     public void write(List<? extends Manager> list) throws Exception {
         list.stream().forEach(item->{
+            log.info("当前处理的数据：{}",item.toString());
             if(item.getName().equals("xuyin")){
                 throw new RuntimeException("自己抛出的错误");
             }else{
-                log.info(Thread.currentThread().getName()+"->"+ item.getName());
+                log.info(Thread.currentThread().getName()+"->"+ item.getId() + "-" + item.getName());
             }
         });
     }

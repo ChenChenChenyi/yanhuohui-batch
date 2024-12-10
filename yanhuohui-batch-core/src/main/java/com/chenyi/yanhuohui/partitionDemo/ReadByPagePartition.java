@@ -31,8 +31,8 @@ public class ReadByPagePartition implements Partitioner {
     public Map<String, ExecutionContext> partition(int gridSize) { //gridSize为每个slave处理的数据个数
         Map<String, ExecutionContext> resultMap = new HashMap<>();
 
-        int totalNum = managerRepository.countByLocalDate(LocalDate.of(2021,12,31),
-                LocalDate.of(2022, 1, 1));
+        int totalNum = managerRepository.countByLocalDate(LocalDate.of(2023,12,31),
+                LocalDate.of(2024, 12, 31));
 
         int pageSize = gridSize;
         int pageNum = totalNum/pageSize;
@@ -41,8 +41,8 @@ public class ReadByPagePartition implements Partitioner {
         }
         for(int i=0;i<pageSize;i++){
             Pageable pageable = PageRequest.of(i,pageNum,Sort.by(new Sort.Order(Sort.Direction.ASC,"create_time")));
-            Page<String> minTime = managerRepository.findMinTimeByPage(LocalDate.of(2021,12,31),
-                    LocalDate.of(2022, 1, 1),pageable);
+            Page<String> minTime = managerRepository.findMinTimeByPage(LocalDate.of(2023,12,31),
+            LocalDate.of(2024, 12, 31),pageable);
             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             List<String> dateTimes = minTime.getContent();
             String startTime = df.format(dateTimes.get(0));

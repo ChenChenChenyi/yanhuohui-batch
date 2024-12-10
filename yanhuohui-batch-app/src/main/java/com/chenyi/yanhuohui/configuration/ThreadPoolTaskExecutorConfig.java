@@ -16,7 +16,7 @@ import java.util.concurrent.ThreadPoolExecutor;
  */
 @Configuration
 public class ThreadPoolTaskExecutorConfig {
-    @Bean("YanHuoHuiBatchtaskExecutor")
+    @Bean("yanHuoHuiBatchtaskExecutor")
     public ThreadPoolTaskExecutor schedulingTaskExecutor() {
         return initExecutor(4, 4, 1, new ThreadPoolExecutor.AbortPolicy(), "YanHuoHuiBatch-taskExecutor-");
     }

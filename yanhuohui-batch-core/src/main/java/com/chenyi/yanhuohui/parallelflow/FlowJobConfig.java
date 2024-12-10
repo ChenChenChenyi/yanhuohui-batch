@@ -79,7 +79,7 @@ public class FlowJobConfig {
     }
 
     @Bean
-    public Flow parallelFlowsplitFlow(@Qualifier("YanHuoHuiBatchtaskExecutor") TaskExecutor taskExecutor,@Qualifier("parallelFlowflowA")Flow flowA,@Qualifier("parallelFlowflowB")Flow flowB) {
+    public Flow parallelFlowsplitFlow(@Qualifier("yanHuoHuiBatchtaskExecutor") TaskExecutor taskExecutor,@Qualifier("parallelFlowflowA")Flow flowA,@Qualifier("parallelFlowflowB")Flow flowB) {
         return new FlowBuilder<SimpleFlow>("parallelFlowsplitFlow")
                 .split(taskExecutor)
                 .add(flowA, flowB)

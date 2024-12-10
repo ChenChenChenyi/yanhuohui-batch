@@ -38,8 +38,6 @@ import java.util.concurrent.TimeUnit;
 public class BatchDemoConfiguration {
 
     @Autowired
-    private DataSource dataSource;
-    @Autowired
     @Qualifier("primaryEntityManagerFactory")
     private EntityManagerFactory entityManagerFactory;
 
@@ -93,7 +91,7 @@ public class BatchDemoConfiguration {
 
     @Bean
     @StepScope
-    public ItemWriter<Manager> step1Writer(@Qualifier("dataSource") DataSource dataSource) throws InterruptedException {
+    public ItemWriter<Manager> step1Writer(@Qualifier("primaryDataSource") DataSource dataSource) throws InterruptedException {
         JdbcBatchItemWriter<Manager> writer = new JdbcBatchItemWriter<>();
         //我们使用JDBC批处理的JdbcBatchItemWriter来写数据到数据库
         writer.setItemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider<>());

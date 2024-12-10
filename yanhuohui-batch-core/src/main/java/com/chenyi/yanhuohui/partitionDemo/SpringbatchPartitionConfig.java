@@ -44,6 +44,9 @@ public class SpringbatchPartitionConfig {
     private stepExecutionPartitionListener stepExecutionPartitionListener;
     @Autowired
     private ReadByPagePartition readByPagePartition;
+    @Autowired
+    @Qualifier("yanHuoHuiBatchtaskExecutor")
+    private ThreadPoolTaskExecutor taskExecutor;
 
     @Autowired
     @Qualifier("PartitionSlaveReader")
@@ -62,13 +65,20 @@ public class SpringbatchPartitionConfig {
                 .build();
     }
 
+    /**批任务分片流程：
+     * 1.定义分片逻辑Partitioner
+     * 2.构建分片Handle：PartitionHandler
+     * 3.执行需要分片的任务
+     * 4.传入线程池
+     * 5.聚合分片任务结果
+     */
     @Bean
     public Step partitionStep() throws Exception {
         return stepBuilderFactory.get("partitionStep")
                 .partitioner("slaveStep", readByPagePartition)
-                .partitionHandler(partitionHandler(this.slaveStep(),this.taskExecutor()))
+                .partitionHandler(partitionHandler(this.slaveStep(),taskExecutor))
                 .step(slaveStep())
-                .taskExecutor(taskExecutor())
+                .taskExecutor(taskExecutor)
                 .aggregator(stepExecutionAggregator())
                 .build();
     }
@@ -83,15 +93,15 @@ public class SpringbatchPartitionConfig {
                 .build();
     }
 
-    @Bean
-    public ThreadPoolTaskExecutor taskExecutor() {
-        ThreadPoolTaskExecutor taskExecutor = new ThreadPoolTaskExecutor();
-        taskExecutor.setMaxPoolSize(5);
-        taskExecutor.setCorePoolSize(5);
-        taskExecutor.setQueueCapacity(5);
-        taskExecutor.afterPropertiesSet();
-        return taskExecutor;
-    }
+//    @Bean
+//    public ThreadPoolTaskExecutor taskExecutor() {
+//        ThreadPoolTaskExecutor taskExecutor = new ThreadPoolTaskExecutor();
+//        taskExecutor.setMaxPoolSize(5);
+//        taskExecutor.setCorePoolSize(5);
+//        taskExecutor.setQueueCapacity(5);
+//        taskExecutor.afterPropertiesSet();
+//        return taskExecutor;
+//    }
 
     @Bean
     public PartitionHandler partitionHandler(Step slaveStep,ThreadPoolTaskExecutor taskExecutor){
