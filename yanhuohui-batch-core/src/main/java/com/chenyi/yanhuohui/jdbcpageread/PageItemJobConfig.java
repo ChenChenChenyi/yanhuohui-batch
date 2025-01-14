@@ -1,4 +1,4 @@
-package com.chenyi.yanhuohui.pageitem;
+package com.chenyi.yanhuohui.jdbcpageread;
 
 import com.chenyi.yanhuohui.primary.manager.Manager;
 import org.springframework.batch.core.Job;
@@ -13,7 +13,6 @@ import org.springframework.batch.item.database.support.MySqlPagingQueryProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.transaction.PlatformTransactionManager;
 
 import javax.sql.DataSource;
 import java.util.HashMap;

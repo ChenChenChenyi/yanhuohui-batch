@@ -13,7 +13,7 @@ import javax.sql.DataSource;
 
 /**
  * @Classname HikariDataSourceConfiguration
- * @Description TODO
+ * @Description 双数据源的配置，配置了两个HikariDataSource，分别是primaryDataSource和wangdaiDataSource
  * @Date 2024/12/3 19:06
  * @Created by 陈义
  */

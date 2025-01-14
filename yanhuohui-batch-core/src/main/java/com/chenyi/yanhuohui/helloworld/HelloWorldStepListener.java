@@ -19,6 +19,7 @@ public class HelloWorldStepListener implements StepExecutionListener {
     public void beforeStep(StepExecution stepExecution) {
         // Step 开始前的初始化或日志记录
         System.out.println("HelloWorldStep " + stepExecution.getStepName() + " is starting...");
+        stepExecution.getExecutionContext().put("executeParam1","20250109");
     }
 
     @Override

@@ -31,11 +31,38 @@ public class PageItemController {
     @Qualifier("pageItemJob")
     private Job pageItemJob;
 
+    @Autowired
+    @Qualifier("jpaPageItemJob")
+    private Job jpaPageItemJob;
+
+    @Autowired
+    @Qualifier("demoPageItemJob")
+    private Job demoPageItemJob;
+
+    //使用JDBCPageItemReader
     @GetMapping("/page-item-demo")
     public void helloWorld(String name) throws JobInstanceAlreadyCompleteException, JobExecutionAlreadyRunningException, JobParametersInvalidException, JobRestartException {
         JobParameters jobParameters = new JobParametersBuilder()
                 .addString("executeTime", LocalDateTime.now().toString())
                 .toJobParameters();
         jobLauncher.run(pageItemJob, jobParameters);
+    }
+
+    //使用JDBCPageItemReader
+    @GetMapping("/jpa-page-item-demo")
+    public void jpaPageItemDemo(String name) throws JobInstanceAlreadyCompleteException, JobExecutionAlreadyRunningException, JobParametersInvalidException, JobRestartException {
+        JobParameters jobParameters = new JobParametersBuilder()
+                .addString("executeTime", LocalDateTime.now().toString())
+                .toJobParameters();
+        jobLauncher.run(jpaPageItemJob, jobParameters);
+    }
+
+    //自定义PageItemReader
+    @GetMapping("/abstract-page-item-demo")
+    public void abstractPageItemDemo(String name) throws JobInstanceAlreadyCompleteException, JobExecutionAlreadyRunningException, JobParametersInvalidException, JobRestartException {
+        JobParameters jobParameters = new JobParametersBuilder()
+                .addString("executeTime", LocalDateTime.now().toString())
+                .toJobParameters();
+        jobLauncher.run(demoPageItemJob, jobParameters);
     }
 }

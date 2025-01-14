@@ -119,7 +119,7 @@ public class SpringbatchPartitionConfig {
 
 
     @Bean
-    @StepScope
+    @StepScope //如果不使用 @StepScope，尝试通过 @Value("#{jobParameters['paramName']}") 注入参数时会报错，因为非 @StepScope Bean 在容器启动时就会被实例化，此时 JobParameters 还未初始化。nazenmeban
     public JdbcPagingItemReader<Map<String, Object>> slaveReader(@Value("#{stepExecutionContext['startTime']}") String startTime,
                                                      @Value("#{stepExecutionContext['endTime']}") String endTime){
        Map<String,Order> sortKeys = new HashMap<>(1);

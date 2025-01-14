@@ -1,4 +1,4 @@
-package com.chenyi.yanhuohui.pageitem;
+package com.chenyi.yanhuohui.jdbcpageread;
 
 import com.chenyi.yanhuohui.primary.manager.Manager;
 import org.springframework.jdbc.core.RowMapper;
