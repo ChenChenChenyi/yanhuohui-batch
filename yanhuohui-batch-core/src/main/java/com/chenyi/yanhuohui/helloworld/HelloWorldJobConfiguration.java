@@ -1,5 +1,6 @@
 package com.chenyi.yanhuohui.helloworld;
 
+import com.chenyi.yanhuohui.common.CommonTasklet;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
@@ -35,9 +36,23 @@ public class HelloWorldJobConfiguration {
     }
 
     @Bean
-    public Job helloWorldJob(JobBuilderFactory jobBuilderFactory,@Qualifier("helloWorldStep")Step s1) {
+    public Step successStep(StepBuilderFactory stepBuilderFactory) {
+        return  stepBuilderFactory.get("successStep")
+                .tasklet((contribution, chunkContext) -> {
+                    // 从 chunkContext 获取 JobParameters
+                    //String myParam = chunkContext.getStepContext().getJobParameters().get("myParam").toString();
+                    String outputpath = "outputpath";
+                    CommonTasklet tasklet = new CommonTasklet(outputpath);
+                    return tasklet.execute(contribution, chunkContext);  // 执行 Tasklet
+                })
+                .build();
+    }
+
+    @Bean
+    public Job helloWorldJob(JobBuilderFactory jobBuilderFactory,@Qualifier("helloWorldStep")Step s1,@Qualifier("successStep") Step step2) {
         return jobBuilderFactory.get("helloWorldJob")
                 .start(s1)
+                .next(step2)
                 .build();
     }
 }

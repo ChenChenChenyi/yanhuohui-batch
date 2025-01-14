@@ -1,5 +1,6 @@
 package com.chenyi.yanhuohui.abstractpageread;
 
+import com.chenyi.yanhuohui.common.CommonTasklet;
 import com.chenyi.yanhuohui.primary.manager.Manager;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -47,10 +48,11 @@ public class DemoPagingBatchProcessConfiguration {
      * @return
      */
     @Bean
-    public Job demoPageItemJob(@Qualifier("demoPageItemStep") Step step) {
+    public Job demoPageItemJob(@Qualifier("demoPageItemStep") Step step1,@Qualifier("successStep") Step step2) {
         return this.jobBuilderFactory.get("demoPageItemJob")
                 //.incrementer(new RunIdIncrementer())
-                .start(step)
+                .start(step1)
+                .next(step2)
                 .build();
     }
 
@@ -66,7 +68,19 @@ public class DemoPagingBatchProcessConfiguration {
                 .processor(demoPagingItemProcessor)
                 .writer(demoPagingItemWriter)
                 .build();
+    }
 
+    @Bean
+    public Step successStep() {
+        return this.stepBuilderFactory.get("successStep")
+                .tasklet((contribution, chunkContext) -> {
+                    // 从 chunkContext 获取 JobParameters
+                    //String myParam = chunkContext.getStepContext().getJobParameters().get("myParam").toString();
+                    String outputpath = "outputpath";
+                    CommonTasklet tasklet = new CommonTasklet(outputpath);
+                    return tasklet.execute(contribution, chunkContext);  // 执行 Tasklet
+                })
+                .build();
     }
 
     @Bean
