@@ -1,4 +1,4 @@
-package com.chenyi.yanhuohui.controller;
+package com.chenyi.yanhuohui.batchcontroller;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

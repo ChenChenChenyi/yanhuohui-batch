@@ -1,4 +1,4 @@
-package com.chenyi.yanhuohui.controller;
+package com.chenyi.yanhuohui.batchcontroller;
 
 import com.chenyi.yanhuohui.DefaultJobParameters;
 import lombok.extern.slf4j.Slf4j;
@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @RestController
 @Slf4j

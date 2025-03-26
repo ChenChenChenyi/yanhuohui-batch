@@ -144,7 +144,7 @@ public class DataSourceTest {
     @Test
     @Transactional("primaryPlatformTransactionManager")  //加上这个注解会导致插入数据自动回滚
     public void testPrimaryPlatformTransactionManager(){
-        managerRepository.updateById(43L,"dd");
+        managerRepository.updateById(78L,"dd");
         //throw new RuntimeException();
     }
 

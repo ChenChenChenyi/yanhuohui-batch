@@ -1,4 +1,4 @@
-package com.chenyi.yanhuohui.controller;
+package com.chenyi.yanhuohui.batchcontroller;
 
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobParameters;

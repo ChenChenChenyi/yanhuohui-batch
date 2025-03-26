@@ -1,5 +1,6 @@
 package com.chenyi.yanhuohui.csvfile;
 
+import com.chenyi.yanhuohui.abstractpageread.DemoPagingItemWriter;
 import com.chenyi.yanhuohui.primary.manager.Manager;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
@@ -24,6 +25,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.FileSystemResource;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionManager;
 
 import javax.sql.DataSource;
 
@@ -100,19 +103,19 @@ public class CsvBatchConfig {
      * @param dataSource
      * @return
      */
-    @Bean
-    public ItemWriter<Manager> writer(DataSource dataSource) {
-        JdbcBatchItemWriter<Manager> writer = new JdbcBatchItemWriter<>();
-        //我们使用JDBC批处理的JdbcBatchItemWriter来写数据到数据库
-        writer.setItemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider<>());
-
-        String sql = "insert into manager " + " (name,role,create_time) "
-                + " values(:name,:role,:createTime)";
-        //在此设置要执行批处理的SQL语句
-        writer.setSql(sql);
-        writer.setDataSource(dataSource);
-        return writer;
-    }
+//    @Bean
+//    public ItemWriter<Manager> writer(DataSource dataSource) {
+//        JdbcBatchItemWriter<Manager> writer = new JdbcBatchItemWriter<>();
+//        //我们使用JDBC批处理的JdbcBatchItemWriter来写数据到数据库
+//        writer.setItemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider<>());
+//
+//        String sql = "insert into manager " + " (name,role,create_time) "
+//                + " values(:name,:role,:createTime)";
+//        //在此设置要执行批处理的SQL语句
+//        writer.setSql(sql);
+//        writer.setDataSource(dataSource);
+//        return writer;
+//    }
 
     /**
      * Job定义，我们要实际执行的任务，包含一个或多个Step
@@ -142,14 +145,15 @@ public class CsvBatchConfig {
      * @return
      */
     @Bean
-    public Step csvFileimportStep(StepBuilderFactory stepBuilderFactory, ItemReader<Manager> reader, ItemWriter<Manager> writer,
-                      ItemProcessor<Manager, Manager> processor) {
+    public Step csvFileimportStep(StepBuilderFactory stepBuilderFactory, ItemReader<Manager> reader, @Qualifier("csvFileWriter") ItemWriter itemWriter,
+                                  ItemProcessor<Manager, Manager> processor, @Qualifier("primaryPlatformTransactionManager") PlatformTransactionManager transactionManager) {
         return stepBuilderFactory
                 .get("csvFileimportStep")
+                .transactionManager(transactionManager)
                 .<Manager, Manager>chunk(3)//批处理每次提交3条数据
                 .reader(reader)//给step绑定reader
                 .processor(processor)//给step绑定processor
-                .writer(writer)//给step绑定writer
+                .writer(itemWriter)//给step绑定writer
                 .listener(new CsvFileReaderListener())
                 .listener(new CsvFileWriterListener())
                 .stream(stream())
@@ -165,6 +169,11 @@ public class CsvBatchConfig {
     @Bean
     public Validator<Manager> csvBeanValidator() {
         return new CsvBeanValidator<Manager>();
+    }
+
+    @Bean
+    CsvFileWriter csvFileWriter() {
+        return new CsvFileWriter();
     }
 
     @Bean
